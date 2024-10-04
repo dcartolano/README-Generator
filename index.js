@@ -16,15 +16,51 @@ const questions = [
 ];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, content) {
-    fs.writeFile(filename, content,
-        (err) => err ? console.error(err) : console.log(`${filename} created!`)
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName,
+        `
+# ${data.title}
+
+## Description
+
+${data.description}
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [Questions](#questions)
+
+## Installation
+
+${data.installation}
+
+## Usage
+
+${data.usage}
+
+## License
+
+${data.license}
+
+## Contributing
+
+${data.contributing}
+
+## Tests
+
+${data.tests}
+
+## Questions
+
+If you have any questions, please contact me via [GitHub](https://github.com/${data.gitHubUN}) or [email](mailto:${data.email}).
+        `,
+        (err) => err ? console.error(err) : console.log(`${fileName} created!`)
     )
 }
-
-const generateReadMe = () => {
-
-};
 
 // TODO: Create a function to initialize app
 function init() {
@@ -64,7 +100,7 @@ function init() {
             { // 6
                 type: 'input',
                 message: questions[6],
-                name: 'test',
+                name: 'tests',
             },
             { // 7
                 type: 'input',
@@ -78,8 +114,7 @@ function init() {
             },
         ])
     .then((responses) => {
-        const readMeContent = generateReadMe(responses);
-        writeToFile('TESTME.md', readMeContent);
+        writeToFile('TESTME.md', responses);
     })
 }
 
