@@ -17,6 +17,7 @@ const questions = [
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
+    // call license functions?
     fs.writeFile(fileName,
         `
 # ${data.title}
