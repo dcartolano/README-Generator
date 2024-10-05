@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 import inquirer from 'inquirer';
 import fs from 'fs';
+import generateMarkdown from './utils/generateMarkdown.js';
 
 // TODO: Create an array of questions for user input
 const questions = [
@@ -17,53 +18,19 @@ const questions = [
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-    // call license functions?
     fs.writeFile(fileName,
-        `
-# ${data.title}
-
-## Description
-
-${data.description}
-
-## Table of Contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [License](#license)
-- [Contributing](#contributing)
-- [Tests](#tests)
-- [Questions](#questions)
-
-## Installation
-
-${data.installation}
-
-## Usage
-
-${data.usage}
-
-## License
-
-${data.license}
-
-## Contributing
-
-${data.contributing}
-
-## Tests
-
-${data.tests}
-
-## Questions
-
-If you have any questions, please contact me via [GitHub](https://github.com/${data.gitHubUN}) or [email](mailto:${data.email}).
-        `,
+        generateMarkdown(data),
         (err) => err ? console.error(err) : console.log(`${fileName} created!`)
     )
 }
 
 // TODO: Create a function to initialize app
+
+const licenses = [
+    'None',
+    'MIT License'
+];
+
 function init() {
     inquirer
         .prompt([
@@ -90,7 +57,7 @@ function init() {
             { // 4
                 type: 'list',
                 message: questions[4],
-                choices: ['choice1', 'choice2', 'choice3', 'choice4'],
+                choices: licenses,
                 name: 'license',
             },
             { // 5
